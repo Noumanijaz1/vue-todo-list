@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
 // component import
 import AddTodo from "./AddTodo.vue";
 import TodoList from "./TodoList.vue";
@@ -11,12 +11,29 @@ const randomId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 };
 
+// Load todos from localStorage when app starts
+onMounted(() => {
+  const saved = localStorage.getItem("todos");
+  if (saved) {
+    todos.value = JSON.parse(saved);
+  }
+});
+
+// Watch todos and save them whenever they change
+watch(
+  todos,
+  (newTodos) => {
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  },
+  { deep: true } // important because todos is an array of objects
+);
+
 // add todo function
 const addTodo = (newTodo) => {
   todos.value.push({
     id: randomId(),
     label: newTodo,
-    completed: false, 
+    completed: false,
   });
 };
 
