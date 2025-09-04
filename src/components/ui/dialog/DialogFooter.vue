@@ -8,12 +8,9 @@ const props = defineProps({
 
 <template>
   <div
-    data-slot="card"
+    data-slot="dialog-footer"
     :class="
-      cn(
-        'bg-card text-card-foreground flex flex-col gap-6 rounded border py-6 shadow-sm',
-        props.class,
-      )
+      cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', props.class)
     "
   >
     <slot />

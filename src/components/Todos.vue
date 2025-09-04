@@ -4,9 +4,10 @@ import { ref, watch, onMounted } from "vue";
 import AddTodo from "./AddTodoForm.vue";
 import TodoList from "./TodoList.vue";
 import TodoMetrix from "./TodoMetrix.vue";
+import TodoFilters from "./TodoFilters.vue";
 
 const todos = ref([]);
-
+const isOpenAddTodo = ref(false);
 // generate random id function
 const randomId = () => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
@@ -30,10 +31,13 @@ watch(
 );
 
 // add todo function
-const addTodo = (newTodo) => {
+const addTodo = (todoData) => {
   todos.value.push({
     id: randomId(),
-    label: newTodo,
+    label: todoData.title,
+    description: todoData.description || '',
+    priority: todoData.priority || 'medium',
+    dueDate: todoData.dueDate || null,
     completed: false,
   });
 };
@@ -54,7 +58,8 @@ const toggleTodo = (id) => {
 <template>
   <div class="py-12">
     <TodoMetrix :todos="todos" />
-    <AddTodo :addTodo="addTodo" />
+    <AddTodo :addTodo="addTodo" v-model:isOpen="isOpenAddTodo" />
+    <TodoFilters :isOpen="isOpenAddTodo" @update:isOpen="isOpenAddTodo = $event" />
     <TodoList
       :todos="todos"
       :deleteTodo="deleteTodo"

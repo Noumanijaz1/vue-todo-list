@@ -1,9 +1,10 @@
 <script setup>
 import TodosList from "./components/Todos.vue";
 import Header from "./components/Header.vue";
+import TodoFilters from "./components/TodoFilters.vue";
 </script>
 
-<template >
+<template>
   <div class="py-12 max-w-3xl mx-auto">
     <Header />
     <TodosList />
