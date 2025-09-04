@@ -1,8 +1,9 @@
 <script setup>
 import { ref, watch, onMounted } from "vue";
 // component import
-import AddTodo from "./AddTodo.vue";
+import AddTodo from "./AddTodoForm.vue";
 import TodoList from "./TodoList.vue";
+import TodoMetrix from "./TodoMetrix.vue";
 
 const todos = ref([]);
 
@@ -51,8 +52,8 @@ const toggleTodo = (id) => {
 </script>
 
 <template>
-  <div class="max-w-xl mx-auto py-12">
-    <h1 class="text-3xl font-bold mb-4 text-red-300">Todo List</h1>
+  <div class="py-12">
+    <TodoMetrix :todos="todos" />
     <AddTodo :addTodo="addTodo" />
     <TodoList
       :todos="todos"
