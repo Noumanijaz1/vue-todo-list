@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Card from "./ui/card/Card.vue";
+import { defineProps, defineEmits } from "vue";
 const props = defineProps(["isOpen"]);
 const emit = defineEmits(["update:isOpen"]);
 
